@@ -6,8 +6,8 @@ env:
   CARGO_TERM_COLOR: always
   GH_TOKEN: ${{ github.token }}
 jobs:
-  install_vox:
-    name: Install Vox
+  build_site:
+    name: Build site
     runs-on: ubuntu-latest
     steps:
       - name: Get dependency information
@@ -23,16 +23,11 @@ jobs:
             restore-keys: |
                 ${{ runner.os }}-cargo-${{ hashFiles('vox_rev', 'grass_rev') }}
       - if: ${{ steps.cache-cargo.outputs.cache-hit != 'true' }}
-        name: Install Vox
+        name: Install Grass and Vox
         run: |
             rustup update nightly && rustup default nightly
             time cargo install grass
             time cargo install --git https://github.com/emmyoh/vox --features="cli"
-  build_site:
-    needs: install_vox
-    name: Build site
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout codebase
         uses: actions/checkout@v4
       - name: Generate stylesheet
