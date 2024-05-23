@@ -1,6 +1,6 @@
 locale = "fr_FR"
-baseurl = "https://emmyoh.github.io/vox-basic/output/"
-url = "/output/"
+baseurl = "https://emmyoh.github.io/vox-basic/"
+url = "/vox-basic/"
 author = "Alexis Métaireau"
 title = "Alexis' log"
 tagline = "This is a test page"
