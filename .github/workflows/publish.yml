@@ -20,7 +20,9 @@ jobs:
                 ${{ runner.os }}-cargo
       - if: ${{ steps.cache-cargo.outputs.cache-hit != 'true' }}
         name: Install Vox
-        run: time cargo install --git https://github.com/emmyoh/vox --features="cli"
+        run: |
+            rustup update nightly && rustup default nightly
+            time cargo install --git https://github.com/emmyoh/vox --features="cli"
   build_site:
     needs: install_vox
     name: Build site
