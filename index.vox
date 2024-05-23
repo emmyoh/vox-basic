@@ -21,7 +21,7 @@ collections = ["posts"]
 <div class="content">
 <li>
 <h2>
-<li class="p_num">{{ post_number | append: "." }}</li>
+<li class="p_num">{{ post_number | strip | append: "." }}</li>
 <a class="active"
 href="{{ post.url | prepend: global.baseurl }}">
 {{ post.data.title }}
