@@ -4,6 +4,7 @@ on:
     branches: [ "master" ]
 env:
   CARGO_TERM_COLOR: always
+  GH_TOKEN: ${{ github.token }}
 jobs:
   install_vox:
     name: Install Vox
