@@ -5,11 +5,23 @@ collections = ["posts"]
 ---
 <div class="post-list">
 
-{% for post in posts %}
+{% capture post_number %}
+{% increment post_number %}
+{% endcapture %}
+{% assign urls = '' | split: '' %}
+{% assign posts_by_titles = posts | map: 'data' | sort: "title" %}
+{%- for post_title in posts_by_titles -%}
+{%- for post in posts -%}
+{%- if post.data.title == post_title.title -%}
+{%- unless urls contains post.url -%}
+{% assign urls = urls | push: post.url %}
+{% capture post_number %}
+{% increment post_number %}
+{% endcapture %}
 <div class="content">
 <li>
 <h2>
-<li class="p_num">{{ forloop.index | append: "." }}</li>
+<li class="p_num">{{ post_number | append: "." }}</li>
 <a class="active"
 href="{{ post.url | prepend: global.baseurl }}">
 {{ post.data.title }}
@@ -33,5 +45,8 @@ href="{{ post.url | prepend: global.baseurl }}">
 
 </div>
 
-{% endfor %}
+{%- endunless -%}
+{%- endif -%}
+{%- endfor -%}
+{%- endfor -%}
 </div>
