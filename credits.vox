@@ -1,0 +1,18 @@
+---
+title = "Credits"
+permalink = "credits.html"
+layout = "page"
+date = 2024-05-22T00:00:00
+---
+{% markdown %}
+# PEOPLE
+* Emil Sayahi
+
+	- Contact: [limesayahi [at] gmail.com](mailto:limesayahi@gmail.com)
+
+	- GitHub: [https://github.com/emmyoh/](https://github.com/emmyoh/)
+
+* Skami18 & nicoddemus, eike2013, Alexis Métaireau
+
+	- GitHub: [https://github.com/getpelican/pelican-themes/tree/master/basic](https://github.com/getpelican/pelican-themes/tree/master/basic)
+{% endmarkdown %}

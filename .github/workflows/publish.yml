@@ -1,0 +1,54 @@
+name: Publish
+on:
+  push:
+    branches: [ "master" ]
+env:
+  CARGO_TERM_COLOR: always
+jobs:
+  install_vox:
+    name: Install Vox
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore Cargo cache
+        id: cache-cargo
+        uses: actions/cache@v1
+        with:
+            path: ~/.cargo
+            key: ${{ runner.os }}-cargo-${{ hashFiles('~/.cargo/bin/vox') }}
+            restore-keys: |
+                ${{ runner.os }}-cargo-${{ hashFiles('~/.cargo/bin/vox') }}
+                ${{ runner.os }}-cargo
+      - if: ${{ steps.cache-cargo.outputs.cache-hit != 'true' }}
+        name: Install Vox
+        run: time cargo install https://github.com/emmyoh/vox --features="cli"
+  build_site:
+    needs: install_vox
+    name: Build site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v4
+      - name: Generate stylesheet
+        run: |
+          prebuild.sh
+      - name: Build site
+        run: |
+          vox build -d
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+            path: "output/"
+  deploy_site:
+    needs: build_site
+    name: Deploy site to GitHub Pages
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

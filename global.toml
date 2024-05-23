@@ -1,0 +1,6 @@
+locale = "fr_FR"
+baseurl = "https://emmyoh.github.io/vox-basic/output/"
+url = "/output/"
+author = "Alexis Métaireau"
+title = "Alexis' log"
+tagline = "This is a test page"

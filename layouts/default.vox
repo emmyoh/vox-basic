@@ -1,0 +1,20 @@
+---
+---
+<!DOCTYPE html>
+<html>
+
+{% include head.html %}
+
+<body>
+
+<div class="main">
+<div class="page-content">
+<div class="page-container">
+{{ page.rendered }}
+</div>
+</div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+---
+layout = "default"
+---
+<section id="content" class="body">
+<header> <h2 class="entry-title"><a href="{{ page.url | prepend: global.baseurl }}" rel="bookmark" title="Permalink to {{ page.data.title}}">{{ page.data.title }}</a></h2> </header>
+<footer class="post-info">
+<abbr class="published" title="{{ page.date.short_day | downcase }} {{ page.date.day }} {{ page.date.long_month | downcase }} {{ page.date.year }}">
+{{ page.date.short_day | downcase }} {{ page.date.day }} {{ page.date.long_month | downcase }} {{ page.date.year }}
+</abbr>
+
+<address class="vcard author">
+By <a class="url fn" href="{{ global.baseurl }}/index.html">{{ global.author }}</a>
+</address>
+
+</footer>
+<div class="entry-content">
+{{ page.rendered }}
+</div>
+</section>
