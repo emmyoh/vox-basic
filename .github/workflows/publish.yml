@@ -9,14 +9,17 @@ jobs:
     name: Install Vox
     runs-on: ubuntu-latest
     steps:
+      - name: Get Vox revision
+        run: |
+            gh api /repos/emmyoh/vox/commits/master --jq '.sha' > vox_rev
       - name: Restore Cargo cache
         id: cache-cargo
         uses: actions/cache@v1
         with:
             path: ~/.cargo
-            key: ${{ runner.os }}-cargo-${{ hashFiles('~/.cargo/bin/vox') }}
+            key: ${{ runner.os }}-cargo-${{ hashFiles('vox_rev') }}
             restore-keys: |
-                ${{ runner.os }}-cargo-${{ hashFiles('~/.cargo/bin/vox') }}
+                ${{ runner.os }}-cargo-${{ hashFiles('vox_rev') }}
                 ${{ runner.os }}-cargo
       - if: ${{ steps.cache-cargo.outputs.cache-hit != 'true' }}
         name: Install Vox
@@ -32,7 +35,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Generate stylesheet
         run: |
-          prebuild.sh
+          ./prebuild.sh
       - name: Build site
         run: |
           vox build -d
